@@ -58,7 +58,7 @@ class FDBS_Public {
 
 		$buttons = FDBS_Helpers::get_active_buttons( $post_id );
 
-		if ( empty( $buttons ) ) {
+		if ( 0 === FDBS_Helpers::count_buttons( $buttons ) ) {
 			return '';
 		}
 

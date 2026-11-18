@@ -22,10 +22,19 @@ class FDBS_Admin {
 		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_script( 'wp-color-picker' );
 
+		// Los estilos del frontend se cargan también aquí para que la vista previa
+		// y el selector de diseños de separador se vean igual que en el sitio.
+		wp_enqueue_style(
+			'fdbs-frontend',
+			FDBS_PLUGIN_URL . 'assets/css/frontend.css',
+			array(),
+			FDBS_VERSION
+		);
+
 		wp_enqueue_style(
 			'fdbs-admin',
 			FDBS_PLUGIN_URL . 'assets/css/admin.css',
-			array( 'wp-color-picker' ),
+			array( 'wp-color-picker', 'fdbs-frontend' ),
 			FDBS_VERSION
 		);
 

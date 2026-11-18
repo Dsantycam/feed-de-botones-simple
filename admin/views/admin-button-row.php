@@ -18,26 +18,44 @@ $button = wp_parse_args(
 		'new_tab'      => false,
 		'nofollow'     => false,
 		'enabled'      => true,
+		'collapsed'    => false,
 	)
 );
 
-$field_name = 'fdbs_buttons[' . $current_index . ']';
+$field_name   = 'fdbs_buttons[' . $current_index . ']';
+$is_collapsed = ! empty( $button['collapsed'] );
 ?>
 
-<div class="fdbs-button-row">
-	<div class="fdbs-button-row__header">
-		<div class="fdbs-button-row__header-left">
+<div class="fdbs-item-row fdbs-button-row<?php echo $is_collapsed ? ' is-collapsed' : ''; ?>" data-type="button">
+	<input type="hidden" name="<?php echo esc_attr( $field_name . '[type]' ); ?>" value="button">
+	<input type="hidden" class="fdbs-collapsed-input" name="<?php echo esc_attr( $field_name . '[collapsed]' ); ?>" value="<?php echo $is_collapsed ? '1' : ''; ?>">
+
+	<div class="fdbs-item-row__header">
+		<div class="fdbs-item-row__header-left">
 			<span class="fdbs-sort-handle" title="Arrastrar para ordenar">☰</span>
-			<strong class="fdbs-button-row__title">Botón</strong>
+			<button type="button" class="fdbs-item-row__toggle fdbs-toggle-row" aria-expanded="<?php echo $is_collapsed ? 'false' : 'true'; ?>" title="Minimizar / expandir">
+				<span class="dashicons dashicons-arrow-down-alt2" aria-hidden="true"></span>
+			</button>
+			<span class="fdbs-item-row__thumb" aria-hidden="true"></span>
+			<span class="fdbs-item-row__heading">
+				<strong class="fdbs-item-row__title">Botón</strong>
+				<span class="fdbs-item-row__meta"></span>
+			</span>
+			<span class="fdbs-item-row__badge" hidden>Inactivo</span>
 		</div>
 
-		<div class="fdbs-button-row__actions">
+		<div class="fdbs-item-row__actions">
+			<button type="button" class="button button-small fdbs-duplicate-row" title="Duplicar debajo">
+				<span class="dashicons dashicons-admin-page" aria-hidden="true"></span>
+				Duplicar
+			</button>
 			<button type="button" class="button-link-delete fdbs-remove-button">
 				Eliminar
 			</button>
 		</div>
 	</div>
 
+	<div class="fdbs-item-row__body">
 	<div class="fdbs-form-grid">
 		<div class="fdbs-form-field">
 			<label>
@@ -259,5 +277,6 @@ $field_name = 'fdbs_buttons[' . $current_index . ']';
 				<span>Botón activo</span>
 			</label>
 		</div>
+	</div>
 	</div>
 </div>

@@ -15,14 +15,20 @@ $preview_style = sprintf(
 		<?php echo esc_html( $feed_title ); ?>
 	</h4>
 
-	<p class="description" <?php echo ! empty( $preview_buttons ) ? 'style="display:none;"' : ''; ?>>
+	<p class="description" <?php echo FDBS_Helpers::count_buttons( $preview_buttons ) > 0 ?'style="display:none;"' : ''; ?>>
 		Aún no hay botones activos para mostrar.
 	</p>
 
 	<div class="fdbs-admin-preview__list">
 		<?php foreach ( $preview_buttons as $button ) : ?>
 			<?php
-			$title        = isset( $button['title'] ) ? $button['title'] : '';
+			if ( FDBS_Helpers::is_separator( $button ) ) {
+				$current_separator = $button;
+				include FDBS_PLUGIN_PATH . 'public/views/feed-separator.php';
+				continue;
+			}
+
+			$title      = isset( $button['title'] ) ? $button['title'] : '';
 			$description  = isset( $button['description'] ) ? $button['description'] : '';
 			$image_id     = isset( $button['image_id'] ) ? absint( $button['image_id'] ) : 0;
 			$image_url    = isset( $button['image_url'] ) ? $button['image_url'] : '';

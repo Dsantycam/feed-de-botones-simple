@@ -12,8 +12,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="fdbs-feed__buttons fdbs-feed__buttons--columns-<?php echo esc_attr( $columns ); ?>">
 		<?php foreach ( $buttons as $button ) : ?>
 			<?php
-			$current_button = $button;
-			include FDBS_PLUGIN_PATH . 'public/views/feed-button.php';
+			if ( FDBS_Helpers::is_separator( $button ) ) {
+				$current_separator = $button;
+				include FDBS_PLUGIN_PATH . 'public/views/feed-separator.php';
+			} else {
+				$current_button = $button;
+				include FDBS_PLUGIN_PATH . 'public/views/feed-button.php';
+			}
 			?>
 		<?php endforeach; ?>
 	</div>

@@ -34,6 +34,9 @@ class FDBS_Helpers {
 		return '';
 	}
 
+	/**
+	 * Devuelve los elementos activos del feed (botones y separadores) en orden.
+	 */
 	public static function get_active_buttons( $post_id ) {
 		$buttons = get_post_meta( $post_id, '_fdbs_buttons', true );
 
@@ -45,9 +48,92 @@ class FDBS_Helpers {
 			array_filter(
 				$buttons,
 				function ( $button ) {
-					return is_array( $button ) && ! empty( $button['enabled'] ) && ! empty( $button['title'] );
+					if ( ! is_array( $button ) || empty( $button['enabled'] ) ) {
+						return false;
+					}
+
+					if ( self::is_separator( $button ) ) {
+						return true;
+					}
+
+					return ! empty( $button['title'] );
 				}
 			)
+		);
+	}
+
+	public static function is_separator( $item ) {
+		return is_array( $item ) && isset( $item['type'] ) && 'separator' === $item['type'];
+	}
+
+	/**
+	 * Cuenta solo botones (no separadores).
+	 */
+	public static function count_buttons( $items ) {
+		if ( ! is_array( $items ) ) {
+			return 0;
+		}
+
+		return count(
+			array_filter(
+				$items,
+				function ( $item ) {
+					return is_array( $item ) && ! self::is_separator( $item ) && ! empty( $item['title'] );
+				}
+			)
+		);
+	}
+
+	public static function get_separator_styles() {
+		return array(
+			'line'     => 'Línea simple',
+			'gradient' => 'Degradado',
+			'dashed'   => 'Guiones',
+			'dotted'   => 'Punteado',
+			'double'   => 'Doble línea',
+			'wave'     => 'Onda',
+			'diamond'  => 'Ornamento',
+			'dots'     => 'Tres puntos',
+			'pill'     => 'Etiqueta',
+			'space'    => 'Solo espacio',
+		);
+	}
+
+	public static function get_separator_defaults() {
+		return array(
+			'type'           => 'separator',
+			'style'          => 'gradient',
+			'label'          => '',
+			'align'          => 'center',
+			'color'          => '',
+			'thickness'      => 1,
+			'width'          => 100,
+			'spacing_top'    => 24,
+			'spacing_bottom' => 24,
+			'enabled'        => true,
+			'collapsed'      => false,
+		);
+	}
+
+	/**
+	 * Normaliza y sanea un separador (sirve tanto para guardar como para renderizar).
+	 */
+	public static function sanitize_separator( $separator ) {
+		$separator = wp_parse_args( is_array( $separator ) ? $separator : array(), self::get_separator_defaults() );
+		$styles    = self::get_separator_styles();
+
+		return array(
+			'type'           => 'separator',
+			'style'          => isset( $styles[ $separator['style'] ] ) ? $separator['style'] : 'gradient',
+			'label'          => sanitize_text_field( $separator['label'] ),
+			'align'          => 'left' === $separator['align'] ? 'left' : 'center',
+			'color'          => self::sanitize_hex_color( $separator['color'] ),
+			'thickness'      => max( 1, min( 8, absint( $separator['thickness'] ) ) ),
+			'width'          => in_array( absint( $separator['width'] ), array( 25, 50, 75, 100 ), true ) ? absint( $separator['width'] ) : 100,
+			'spacing_top'    => max( 0, min( 160, absint( $separator['spacing_top'] ) ) ),
+			'spacing_bottom' => max( 0, min( 160, absint( $separator['spacing_bottom'] ) ) ),
+			'enabled'        => ! empty( $separator['enabled'] ),
+			'collapsed'      => ! empty( $separator['collapsed'] ),
 		);
 	}
 

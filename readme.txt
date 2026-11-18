@@ -1,10 +1,10 @@
 === Feed de Botones Simple ===
-Contributors: santiagocamachoteatino
+Contributors: Dsantycam
 Tags: buttons, shortcode, bio link, links, feed
 Requires at least: 6.0
-Tested up to: 6.8
+Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -56,13 +56,21 @@ Sí. Puedes seleccionar imágenes desde la biblioteca multimedia de WordPress.
 
 = ¿Puedo usar iconos? =
 
-Sí. El plugin permite usar iconos basados en Dashicons.
+Sí. El plugin incluye un selector con más de 90 iconos (Lucide).
 
 = ¿Puedo mostrar el feed sin título? =
 
 Sí. Usa el atributo show_title="no" en el shortcode.
 
 == Changelog ==
+
+= 1.2.0 =
+* Duplicar botones y separadores dentro del feed
+* Separadores de sección con 10 diseños (línea, degradado, guiones, punteado, doble, onda, ornamento, tres puntos, etiqueta, solo espacio), texto opcional, color, grosor, ancho, alineación y espacio arriba/abajo
+* Minimizar / expandir cada elemento, o todos a la vez; el estado se recuerda al guardar
+* Resumen en la cabecera de cada elemento (título, enlace, icono, estado inactivo)
+* Actualizaciones automáticas desde GitHub
+* Corrige el panel de iconos, que aparecía siempre abierto y con los iconos aplastados
 
 = 1.1.0 =
 * Primera versión estable del plugin

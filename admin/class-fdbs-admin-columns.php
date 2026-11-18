@@ -45,19 +45,8 @@ class FDBS_Admin_Columns {
 
 		if ( 'fdbs_buttons_count' === $column ) {
         	$buttons = get_post_meta( $post_id, '_fdbs_buttons', true );
-        
-        	if ( ! is_array( $buttons ) ) {
-        		$buttons = array();
-        	}
-        
-        	$buttons = array_filter(
-        		$buttons,
-        		function ( $button ) {
-        			return is_array( $button ) && ! empty( $button['title'] );
-        		}
-        	);
-        
-        	echo esc_html( count( $buttons ) );
+
+        	echo esc_html( FDBS_Helpers::count_buttons( $buttons ) );
         }
 	}
 

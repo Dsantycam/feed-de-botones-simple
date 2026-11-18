@@ -116,3 +116,195 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* ==========================================================================
+   Separadores
+   El espaciado (--fdbs-sep-top / --fdbs-sep-bottom) es la distancia real entre
+   el botón de arriba/abajo y la línea: se le resta el gap global del grid.
+   ========================================================================== */
+
+.fdbs-separator {
+    --fdbs-sep-color: currentColor;
+    --fdbs-sep-thickness: 1px;
+    --fdbs-sep-width: 100%;
+    --fdbs-sep-top: 24px;
+    --fdbs-sep-bottom: 24px;
+
+    grid-column: 1 / -1;
+    justify-self: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: var(--fdbs-sep-width);
+    max-width: 100%;
+    margin: calc(var(--fdbs-sep-top) - var(--fdbs-button-gap, 0px)) auto calc(var(--fdbs-sep-bottom) - var(--fdbs-button-gap, 0px));
+    color: var(--fdbs-sep-color);
+}
+
+.fdbs-separator__line {
+    flex: 1 1 0;
+    min-width: 0;
+    height: var(--fdbs-sep-thickness);
+    background: var(--fdbs-sep-color);
+    opacity: 0.28;
+}
+
+.fdbs-separator__label {
+    flex: 0 1 auto;
+    padding: 0 14px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    line-height: 1.3;
+    text-transform: uppercase;
+    text-align: center;
+    word-break: break-word;
+    opacity: 0.75;
+}
+
+.fdbs-separator__mark {
+    flex: 0 0 auto;
+}
+
+.fdbs-separator.has-color .fdbs-separator__line,
+.fdbs-separator.has-color .fdbs-separator__label,
+.fdbs-separator.has-color .fdbs-separator__mark {
+    opacity: 1;
+}
+
+/* Alineación a la izquierda: "TÍTULO ————————" */
+.fdbs-separator--align-left {
+    justify-self: start;
+    justify-content: flex-start;
+    margin-left: 0;
+}
+
+.fdbs-separator--align-left.has-label .fdbs-separator__line:first-child {
+    display: none;
+}
+
+.fdbs-separator--align-left .fdbs-separator__label {
+    padding-left: 0;
+    text-align: left;
+}
+
+/* Degradado: se desvanece hacia los extremos */
+.fdbs-separator--gradient .fdbs-separator__line,
+.fdbs-separator--diamond .fdbs-separator__line,
+.fdbs-separator--pill .fdbs-separator__line {
+    background: linear-gradient(90deg, transparent, var(--fdbs-sep-color));
+    opacity: 0.5;
+}
+
+.fdbs-separator--gradient .fdbs-separator__line:last-child,
+.fdbs-separator--diamond .fdbs-separator__line:last-child,
+.fdbs-separator--pill .fdbs-separator__line:last-child {
+    background: linear-gradient(90deg, var(--fdbs-sep-color), transparent);
+}
+
+/* Guiones */
+.fdbs-separator--dashed .fdbs-separator__line {
+    background: linear-gradient(90deg, var(--fdbs-sep-color) 60%, transparent 0) right center / calc(var(--fdbs-sep-thickness) * 10) 100% repeat-x;
+    opacity: 0.4;
+}
+
+.fdbs-separator--dashed .fdbs-separator__line:last-child {
+    background-position: left center;
+}
+
+/* Punteado (puntos redondos) */
+.fdbs-separator--dotted .fdbs-separator__line {
+    height: calc(var(--fdbs-sep-thickness) * 2 + 1px);
+    background: radial-gradient(circle closest-side, var(--fdbs-sep-color) 92%, transparent) right center / calc(var(--fdbs-sep-thickness) * 4 + 4px) 100% repeat-x;
+    opacity: 0.45;
+}
+
+.fdbs-separator--dotted .fdbs-separator__line:last-child {
+    background-position: left center;
+}
+
+/* Doble línea */
+.fdbs-separator--double .fdbs-separator__line {
+    box-sizing: border-box;
+    height: calc(var(--fdbs-sep-thickness) * 2 + 3px);
+    background: none;
+    border-top: var(--fdbs-sep-thickness) solid var(--fdbs-sep-color);
+    border-bottom: var(--fdbs-sep-thickness) solid var(--fdbs-sep-color);
+    opacity: 0.32;
+}
+
+/* Onda */
+.fdbs-separator--wave .fdbs-separator__line {
+    height: calc(var(--fdbs-sep-thickness) * 3 + 6px);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 8'%3E%3Cpath d='M0 4C4 0 8 0 12 4S20 8 24 4' fill='none' stroke='%23000' stroke-width='1.6'/%3E%3C/svg%3E") right center / auto 100% repeat-x;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 8'%3E%3Cpath d='M0 4C4 0 8 0 12 4S20 8 24 4' fill='none' stroke='%23000' stroke-width='1.6'/%3E%3C/svg%3E") right center / auto 100% repeat-x;
+    opacity: 0.45;
+}
+
+.fdbs-separator--wave .fdbs-separator__line:last-child {
+    -webkit-mask-position: left center;
+    mask-position: left center;
+}
+
+/* Ornamento: líneas que se desvanecen + rombo central */
+.fdbs-separator--diamond .fdbs-separator__mark {
+    position: relative;
+    box-sizing: border-box;
+    width: calc(var(--fdbs-sep-thickness) * 2 + 9px);
+    height: calc(var(--fdbs-sep-thickness) * 2 + 9px);
+    margin: 0 14px;
+    border: var(--fdbs-sep-thickness) solid var(--fdbs-sep-color);
+    transform: rotate(45deg);
+    opacity: 0.6;
+}
+
+.fdbs-separator--diamond .fdbs-separator__mark::after {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    background: var(--fdbs-sep-color);
+}
+
+/* Tres puntos */
+.fdbs-separator--dots .fdbs-separator__line {
+    display: none;
+}
+
+.fdbs-separator--dots .fdbs-separator__mark {
+    --fdbs-dot: calc(var(--fdbs-sep-thickness) * 2 + 4px);
+    width: calc(var(--fdbs-dot) * 6);
+    height: var(--fdbs-dot);
+    background: radial-gradient(circle closest-side, var(--fdbs-sep-color) 92%, transparent) left center / calc(var(--fdbs-dot) * 2) 100% repeat-x;
+    opacity: 0.5;
+}
+
+/* Etiqueta tipo "chip" */
+.fdbs-separator--pill .fdbs-separator__label {
+    margin: 0 12px;
+    padding: 5px 14px;
+    border: 1px solid color-mix(in srgb, var(--fdbs-sep-color) 30%, transparent);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--fdbs-sep-color) 8%, transparent);
+    letter-spacing: 0.06em;
+    opacity: 0.9;
+}
+
+.fdbs-separator--pill.fdbs-separator--align-left .fdbs-separator__label {
+    margin-left: 0;
+    padding-left: 14px;
+}
+
+/* Solo espacio (si tiene texto, funciona como título de sección) */
+.fdbs-separator--space .fdbs-separator__line {
+    display: none;
+}
+
+.fdbs-separator--space .fdbs-separator__label {
+    padding: 0;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    text-transform: none;
+    opacity: 0.9;
+}

@@ -84,6 +84,16 @@ class FDBS_Save_Feed {
 				continue;
 			}
 
+			if ( FDBS_Helpers::is_separator( $button ) ) {
+				// Un checkbox desmarcado no se envía: hay que fijarlo antes de aplicar
+				// los valores por defecto, o un separador desactivado volvería a activarse.
+				$button['enabled']   = ! empty( $button['enabled'] );
+				$button['collapsed'] = ! empty( $button['collapsed'] );
+
+				$clean_buttons[] = FDBS_Helpers::sanitize_separator( $button );
+				continue;
+			}
+
 			$title = isset( $button['title'] ) ? sanitize_text_field( $button['title'] ) : '';
 
 			if ( '' === $title ) {
@@ -102,7 +112,8 @@ class FDBS_Save_Feed {
 				'border_color' => isset( $button['border_color'] ) ? FDBS_Helpers::sanitize_hex_color( $button['border_color'] ) : '',
 				'new_tab'      => ! empty( $button['new_tab'] ),
 				'nofollow'     => ! empty( $button['nofollow'] ),
-				'enabled' => ! empty( $button['enabled'] ),
+				'enabled'      => ! empty( $button['enabled'] ),
+				'collapsed'    => ! empty( $button['collapsed'] ),
 			);
 		}
 
