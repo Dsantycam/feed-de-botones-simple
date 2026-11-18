@@ -11,6 +11,7 @@ class FDBS_Plugin {
 	protected $metaboxes;
 	protected $save_feed;
 	protected $admin_columns;
+	protected $cache;
 
 	public function __construct() {
 		$this->admin         = new FDBS_Admin();
@@ -18,6 +19,7 @@ class FDBS_Plugin {
 		$this->metaboxes     = new FDBS_Metaboxes();
 		$this->save_feed     = new FDBS_Save_Feed();
 		$this->admin_columns = new FDBS_Admin_Columns();
+		$this->cache         = new FDBS_Cache();
 	}
 
 	public function run() {
@@ -32,6 +34,10 @@ class FDBS_Plugin {
 		}
 
 		$this->public->init();
+
+		// Siempre (admin, REST y WP-CLI): al cambiar un feed se refresca la caché
+		// de las páginas que lo muestran.
+		$this->cache->init();
 	}
 
 	public function load_textdomain() {

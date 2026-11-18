@@ -3,7 +3,7 @@
  * Plugin Name: Feed de Botones Simple
  * Plugin URI:  https://github.com/Dsantycam/feed-de-botones-simple
  * Description: Crea feeds de botones tipo bio link mediante shortcode.
- * Version:     1.2.0
+ * Version:     1.2.1
  * Author:      Santiago Camacho Teatino
  * Author URI:  https://santiagocamachomkt.com
  * Text Domain: feed-de-botones-simple
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'FDBS_VERSION', '1.2.0' );
+define( 'FDBS_VERSION', '1.2.1' );
 define( 'FDBS_PLUGIN_FILE', __FILE__ );
 define( 'FDBS_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'FDBS_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
@@ -32,6 +32,7 @@ define( 'FDBS_GITHUB', 'https://github.com/Dsantycam/feed-de-botones-simple/' );
 require_once FDBS_PLUGIN_PATH . 'includes/class-fdbs-activator.php';
 require_once FDBS_PLUGIN_PATH . 'includes/class-fdbs-deactivator.php';
 require_once FDBS_PLUGIN_PATH . 'includes/class-fdbs-helpers.php';
+require_once FDBS_PLUGIN_PATH . 'includes/class-fdbs-cache.php';
 require_once FDBS_PLUGIN_PATH . 'admin/class-fdbs-post-type.php';
 require_once FDBS_PLUGIN_PATH . 'admin/class-fdbs-admin.php';
 require_once FDBS_PLUGIN_PATH . 'public/class-fdbs-public.php';

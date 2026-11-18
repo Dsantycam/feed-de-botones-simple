@@ -4,7 +4,7 @@ Tags: buttons, shortcode, bio link, links, feed
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -63,6 +63,10 @@ Sí. El plugin incluye un selector con más de 90 iconos (Lucide).
 Sí. Usa el atributo show_title="no" en el shortcode.
 
 == Changelog ==
+
+= 1.2.1 =
+* Los cambios en un feed se ven de inmediato aunque el sitio use caché: al guardar el feed se limpia la caché de las páginas que lo muestran (LiteSpeed Cache, WP Rocket, W3 Total Cache, WP Super Cache, WP Fastest Cache, SiteGround Optimizer, Hummingbird, Cache Enabler, WP-Optimize, WP Engine y la caché de elementos de Elementor)
+* Si el feed está en una plantilla, bloque reutilizable o widget, se limpia la caché de todo el sitio
 
 = 1.2.0 =
 * Duplicar botones y separadores dentro del feed
